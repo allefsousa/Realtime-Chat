@@ -1,9 +1,53 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MyApp());
+void main() async {
+  runApp(MyApp());
+
+  /*
+  * SALVANDO DADOS NO FIREBASE
+  */
+  Firestore.instance
+      .collection("mensagens")
+      .document()
+      .setData({"Ok Ok ": "Teste", "From": "Allef", "read": false});
+
+  /*
+  * LENDO DADOS NO FIREBASE
+  */
+  QuerySnapshot snapshot =
+      await Firestore.instance.collection("mensagens").getDocuments();
+  snapshot.documents.forEach((d) {
+    d.reference.updateData({"lido": true});
+    print(d.data);
+  });
+
+  /*
+  * LENDO DADOS NO FIREBASE POR ID
+  */
+  DocumentSnapshot snapshot2 =
+      await Firestore.instance.collection("mensagens").document("msg2").get();
+  print(snapshot2.data);
+  print(snapshot2.documentID);
+
+  /*
+  * LENDO MODIFICAÇÕES DO BD EM TEMPO REAL
+  */
+  Firestore.instance.collection("mensagens").snapshots().listen((dado) {
+    dado.documents.forEach((f){
+      print(f.data);
+    });
+  });
+
+  /*
+  * LENDO MODIFICAÇÕES DO DOCUMENTO EM TEMPO REAL
+  */
+  Firestore.instance.collection("mensagens").document("UK0W3tjeWbajdJAMwGYM").snapshots().listen((dado) {
+      print(dado.data);
+  });
+}
 
 class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -11,34 +55,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Chat'),
-    );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  MyHomePage({Key key, this.title}) : super(key: key);
-  final String title;
-
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-
-  void _incrementCounter() {
-    setState(() {
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+      home: Container(),
     );
   }
 }
