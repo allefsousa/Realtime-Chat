@@ -52,11 +52,11 @@
       },
       "oauth_client": [
         {
-          "client_id": "380556502522-fgefad159e34g8v9mh7np6fdui5iicbi.apps.googleusercontent.com",
+          "client_id": "380556502522-pfgh6c5hrubq454b4ug25emv5unbag08.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.developer.allef.fluterchat",
-            "certificate_hash": "b1e650657f65b98cc5e7f1f13c18f374dc0a3d56"
+            "certificate_hash": "f991b7de4cced6546998495f9fbcea61b3750034"
           }
         },
         {
